@@ -1,4 +1,4 @@
-import login from "../assets/images/login.gif";
+import login from "../assets/images/login-gif.gif";
 import { Link } from "react-router-dom";
 import Header from "../components/Mahasiswa-Components/Header/Header";
 import Footer from "../components/Mahasiswa-Components/Footer/Footer";
@@ -55,7 +55,7 @@ const Login = () => {
             {/* ======= IMG BOX ======== */}
             <div className="hidden lg:block rounded-xl mt-10">
               <figure className="rounded-l-lg">
-                <img src={login} alt="" className="w-full rounded-l-lg" />
+                <img src={login} alt="" className="w-full rounded-l-lg" style={{height: "500px"}}/>
               </figure>
             </div>
 

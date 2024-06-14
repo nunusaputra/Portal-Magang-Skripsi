@@ -29,6 +29,7 @@ import EditLowongan from "../components/Dashboard-Components/Mitra-Lowongan-Maga
 import ProfileMitra from "../components/Dashboard-Components/Mitra-Profile/ProfileMitra";
 import UbahPasswordMitra from "../components/Dashboard-Components/Mitra-Profile/UbahPassMitra";
 import DetailPendaftar from "../components/Dashboard-Components/Mitra-Pendaftar-Magang/DetailPendaftar";
+import Error from "../pages/404";
 
 const Routers = () => {
   return (
@@ -69,6 +70,9 @@ const Routers = () => {
       <Route path='/dashboard/pendaftar-magang/:id' element={<DetailPendaftar />} />
       <Route path='/dashboard/mitra-profile/:id' element={<ProfileMitra />} />
       <Route path='/dashboard/mitra/change-password/:id' element={<UbahPasswordMitra />} />
+
+      {/* Page Not Found */}
+      <Route path="/error-pages" element={<Error />} />
     </Routes>
   );
 };

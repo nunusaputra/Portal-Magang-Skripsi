@@ -285,6 +285,7 @@ updateStatus: async (req, res) => {
               "alamat",
               "no_hp",
               "cv",
+              "linkCV",
               "desc",
             ],
           },

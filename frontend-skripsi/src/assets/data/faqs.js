@@ -1,27 +1,27 @@
 export const faqs = [
   {
-    question: "What is your medical care?",
+    question: "Bagaimana Alur Magang di Fasilkom?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Alur dan prosedur magang di fasilkom terbagi menjadi 4 yaitu permohonan magang, persiapan magang, pelaksanaan magang, dan laporan magang. Pada tahap pendaftaran mahasiswa diarahkan untuk mengisi form permohonan magang, kemudian TU akan memberi nomor surat permohonan, dan terakhir mahasiswa mencetak dan mengirim surat permohonan tersebut ke tempat tujuan magang. Setelah diterima oleh tempat tujuan magang, mahasiswa dapat mengisi form pengajuan dosen pembimbing magang, kemudian TU akan mengumumkan dosen pembimbing magang dan menyerahkan surat tugas dosen pembimbing magang kepada mahasiswa dan dosen pembimbing magang.",
   },
   {
-    question: "What happens if I need to go a hospital?",
+    question: "Bagaimana mahasiswa Fasilkom mendapatkan informasi mengenai kegiatan magang?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Mahasiswa hanya perlu login ke website magang fasilkom, kemudian pilih menu informasi. Maka seluruh informasi mengenai kegiatan magang fasilkom bisa dengan mudah di dapatkan oleh mahasiswa.",
   },
   {
-    question: "What happens if I need to go a hospital?",
+    question: "Bagaimana prosedur konversi SKS untuk mahasiswa yang sedang menjalani magang?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Mahasiswa dapat mengajukan konversi sebanyak 20 sks, untuk proses konversi sks dapat di diskusikan dengan kepala program studi masing-masing.",
   },
   {
-    question: "Can I visit your medical office?",
+    question: "Bagaimana mahasiswa dapat mengajukan dosen pembimbing magang?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Mahasiswa dapat login ke website magang fasilkom, kemudian pilih menu profile. Kemudian mahasiswa dapat memilih menu pengajuan dosen pembimbing, pastikan sebelum mengisi form anda sudah diterima pada salah satu mitra magang agar proses pengajuan dosen pembimbing magang dapat berjalan sukses.",
   },
   {
-    question: "Does you provide urgent care?",
+    question: "Bagaimana mahasiswa dapat mengupload laporan magang?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Mahasiswa dapat login ke website magang fasilkom, kemudian pilih menu profile. Setelah itu mahasiswa dapat memilih menu laporan magang, pastikan sebelum mengisi form anda sudah diterima pada salah satu mitra magang agar proses upload laporan magang berjalan dengan sukses.",
   },
 ];

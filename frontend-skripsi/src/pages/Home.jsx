@@ -1,7 +1,7 @@
 import React from "react";
 import wisnu3 from "../assets/images/wisnu3.png";
 import karno from "../assets/images/karno.png";
-import deddy from "../assets/images/deddy.png";
+import ammar from "../assets/images/ammar.png";
 import skilvul from "../assets/images/skilvul.png";
 import jidoka from "../assets/images/jidoka.png";
 import cbi from "../assets/images/cbi.png";
@@ -14,6 +14,7 @@ import TestimonialList from "../components/Mahasiswa-Components/Testimonial/Test
 import Header from "../components/Mahasiswa-Components/Header/Header";
 import Footer from "../components/Mahasiswa-Components/Footer/Footer";
 import Banner from "./Banner";
+import { Link } from "react-router-dom";
 // import icon01 from "../assets/images/icon01.png";
 // import icon02 from "../assets/images/icon02.png";
 // import icon03 from "../assets/images/icon03.png";
@@ -32,8 +33,8 @@ import Banner from "./Banner";
 const Home = () => {
   return (
     <>
-    <Banner />
-    <Header />
+      <Banner />
+      <Header />
       {/* ====== Hero Section ========= */}
       <section className="hero__section pt-[90px] 2xl:h-[800px]">
         <div className="container">
@@ -50,7 +51,9 @@ const Home = () => {
                   mereka dan membentuk masa depan yang lebih cerah dengan
                   peluang magang yang tak ternilai.
                 </p>
-                <button className="btn">Daftar Magang Sekarang</button>
+                <Link to="/login">
+                  <button className="btn">Daftar Magang Sekarang</button>
+                </Link>
               </div>
 
               {/* ====== Hero Counter ======== */}
@@ -67,7 +70,7 @@ const Home = () => {
                   alt=""
                   className="w-full mb-[30px] drop-shadow-md"
                 />
-                <img src={deddy} alt="" className="w-full drop-shadow-md" />
+                <img src={ammar} alt="" className="w-full drop-shadow-md" />
               </div>
             </div>
           </div>
@@ -83,9 +86,12 @@ const Home = () => {
       <section className="bg-[#D9D9D9]">
         <div className="container">
           <div className="xl:w-[570px] mx-auto">
-            <h2 className="heading text-center">Benefit Yang Kamu Dapatkan Selama Magang</h2>
+            <h2 className="heading text-center">
+              Benefit Yang Kamu Dapatkan Selama Magang
+            </h2>
             <p className="text__para text-center">
-              Kamu akan mendapatkan beberapa keuntungan selama periode kegiatan magang berlangsung.
+              Kamu akan mendapatkan beberapa keuntungan selama periode kegiatan
+              magang berlangsung.
             </p>
           </div>
           <ServicesList />
@@ -96,10 +102,13 @@ const Home = () => {
       {/* Jobs Section Start */}
       <section>
         <div className="container">
-        <div className="xl:w-[570px] mx-auto">
-            <h2 className="heading text-center font-[800]">Temukan Tempat Magang Impianmu</h2>
+          <div className="xl:w-[570px] mx-auto">
+            <h2 className="heading text-center font-[800]">
+              Temukan Tempat Magang Impianmu
+            </h2>
             <p className="text__para text-center">
-              Kamu dapat mencari berbagai jenis magang yang tersedia sesuai dengan minat dan kemampuan yang kamu miliki.
+              Kamu dapat mencari berbagai jenis magang yang tersedia sesuai
+              dengan minat dan kemampuan yang kamu miliki.
             </p>
           </div>
           <JobsList />
@@ -109,11 +118,12 @@ const Home = () => {
 
       {/* Testimonial Section Start */}
       <section className="bg-[#D9D9D9]">
-      <div className="container">
-        <div className="xl:w-[570px] mx-auto">
+        <div className="container">
+          <div className="xl:w-[570px] mx-auto">
             <h2 className="heading text-center font-[800]">Apa Kata Mereka</h2>
             <p className="text__para text-center">
-              Dengarkan pengalaman-pengalaman yang mereka dapatkan selama mengikuti kegatan magang.
+              Dengarkan pengalaman-pengalaman yang mereka dapatkan selama
+              mengikuti kegatan magang.
             </p>
           </div>
           <TestimonialList />
@@ -124,54 +134,54 @@ const Home = () => {
       {/* Company Banner Start */}
       <section className="mb-[50px]">
         <div className="container">
-              <div className="lg:w-[880px] mx-auto">
-                <h2 className="heading text-center font-[800]">
-                  Telah Bekerjasama Dengan Beberapa Mitra Ternama.
-                </h2>
-                <p className="text__para text-center">
-                  Fasilkom telah bekerjasama dengan beberapa mitra industri yang
-                  dapat membantu mahasiswa dalam menemukan tempat magang.
-                </p>
-                </div>
+          <div className="lg:w-[880px] mx-auto">
+            <h2 className="heading text-center font-[800]">
+              Telah Bekerjasama Dengan Beberapa Mitra Ternama.
+            </h2>
+            <p className="text__para text-center">
+              Fasilkom telah bekerjasama dengan beberapa mitra industri yang
+              dapat membantu mahasiswa dalam menemukan tempat magang.
+            </p>
+          </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
-                  <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
-                    <img
-                      src={skilvul}
-                      alt=""
-                      className="max-w-full fill-current text-gray-400"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
-                    <img
-                      src={jidoka}
-                      alt=""
-                      className="max-w-full fill-current text-gray-400"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
-                    <img
-                      src={cbi}
-                      alt=""
-                      className="max-w-full fill-current text-gray-400"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
-                    <img
-                      src={kalbe}
-                      alt=""
-                      className="max-w-full fill-current text-gray-400"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
-                    <img
-                      src={aisin}
-                      alt=""
-                      className="max-w-full fill-current text-gray-400"
-                    />
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
+            <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
+              <img
+                src={skilvul}
+                alt=""
+                className="max-w-full fill-current text-gray-400"
+              />
             </div>
+            <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
+              <img
+                src={jidoka}
+                alt=""
+                className="max-w-full fill-current text-gray-400"
+              />
+            </div>
+            <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
+              <img
+                src={cbi}
+                alt=""
+                className="max-w-full fill-current text-gray-400"
+              />
+            </div>
+            <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
+              <img
+                src={kalbe}
+                alt=""
+                className="max-w-full fill-current text-gray-400"
+              />
+            </div>
+            <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
+              <img
+                src={aisin}
+                alt=""
+                className="max-w-full fill-current text-gray-400"
+              />
+            </div>
+          </div>
+        </div>
       </section>
       {/* Company Banner End */}
       <Footer />

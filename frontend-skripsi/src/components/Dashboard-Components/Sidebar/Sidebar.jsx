@@ -11,6 +11,8 @@ import { MdLibraryBooks } from "react-icons/md";
 import { GrWorkshop } from "react-icons/gr";
 import fasilkomLogo from "../../../assets/images/logo-fasilkom.png";
 import { useSelector } from "react-redux";
+import { RiAdminLine } from "react-icons/ri";
+import { FaUserCheck } from "react-icons/fa";
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const { user } = useSelector((state) => state.auth);
@@ -48,6 +50,22 @@ const Sidebar = () => {
       </div>
       {/* {user && user.data.role === "admin" && ( */}
       <ul className="pt-6 mt-5">
+        {/* Admin */}
+        <li>
+          <div
+            to=""
+            className="flex rounded-md  p-2 text-gray-300 text-md items-center mt-3 gap-x-4"
+          >
+            <RiAdminLine className="text-xl text-blackColor mt-2" />
+            <span
+              className={`${
+                !open && "hidden"
+              } text-blackColor font-[600] origin-left duration-200 mt-2`}
+            >
+              Admin
+            </span>
+          </div>
+        </li>
         {/* Sidebar 1 */}
         <li>
           <NavLink
@@ -138,6 +156,23 @@ const Sidebar = () => {
         {/* )} */}
 
         {/* {user && user.data.role === "mitra" && ( */}
+        {/* Mitra */}
+        <li>
+          <div
+            to=""
+            className="flex rounded-md p-2 text-gray-300 text-md items-center mt-5 gap-x-4"
+          >
+            <FaUserCheck className="text-xl text-blackColor mt-2" />
+            <span
+              className={`${
+                !open && "hidden"
+              } text-blackColor font-[600] origin-left duration-200 mt-2`}
+            >
+              Mitra
+            </span>
+          </div>
+        </li>
+
         {/* Sidebar 5 */}
         <li>
           <NavLink

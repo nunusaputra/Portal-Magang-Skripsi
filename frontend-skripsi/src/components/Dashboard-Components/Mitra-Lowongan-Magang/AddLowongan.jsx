@@ -36,7 +36,7 @@ const AddLowongan = () => {
       navigate("/auth/login");
     }
     if (user && user.data.role !== "mitra") {
-      navigate("/dashboard/information");
+      navigate("/error-page");
     }
   }, [isError, navigate]);
 
@@ -55,8 +55,8 @@ const AddLowongan = () => {
         deadline: deadline,
         desc: desc,
       });
-      toast.success("Berhasil Membuat Informasi");
-      navigate("/dashboard/information");
+      toast.success("Berhasil Membuat Lowongan Magang");
+      navigate("/dashboard/lowongan-magang");
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.message);

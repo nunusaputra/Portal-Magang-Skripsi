@@ -18,8 +18,8 @@ const UsersLogin = (props) => {
 
   useEffect(() => {
     if (user || isSuccess) {
-      toast.success("Login Success")
-      navigate("/dashboard/information");
+        toast.success("Login Success")
+        navigate("/dashboard/information");
     } else if (isError) {
       toast.error(message);
     }

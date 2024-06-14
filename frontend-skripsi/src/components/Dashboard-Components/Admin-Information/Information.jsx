@@ -33,7 +33,7 @@ const Information = () => {
       navigate("/auth/login");
     }
     if (user && user.data.role !== "admin") {
-      navigate("/dashboard/lowongan-magang");
+      navigate("/error-pages");
     }
   }, [isError, navigate]);
 

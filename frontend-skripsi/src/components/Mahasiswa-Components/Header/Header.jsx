@@ -21,12 +21,12 @@ const navLinks = [
     display: "Home",
   },
   {
-    path: "/information",
-    display: "Informasi",
-  },
-  {
     path: "/lowongan-magang",
     display: "Magang",
+  },
+  {
+    path: "/information",
+    display: "Informasi",
   },
   {
     path: "/contact",

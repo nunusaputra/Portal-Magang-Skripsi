@@ -51,7 +51,7 @@ const Pendaftar = () => {
       navigate("/auth/login");
     }
     if (user && user.data.role !== "mitra") {
-      navigate("/dashboard/information");
+      navigate("/error-pages");
     }
   }, [isError, navigate]);
 
