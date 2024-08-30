@@ -8,22 +8,29 @@ const {
   updateUser,
   editProfile,
   changePassword,
-  getProfileById
+  getProfileById,
   // uploadImage
 } = require("../../controllers/adminControllers/usersControllers");
 
-const fileUpload = require('../../utils/fileUpload')
+const fileUpload = require("../../utils/fileUpload");
 
 const { verifyUser, adminOnly } = require("../../middleware/auth");
-const {body} = require('express-validator')
+const { body } = require("express-validator");
+const {
+  uploadImage,
+} = require("../../controllers/mitraControllers/editProfile");
 
 router.get("/account", verifyUser, adminOnly, getAllUser);
 router.get("/account/:id", verifyUser, adminOnly, getUserById);
 router.get("/account/profile/:id", verifyUser, adminOnly, getProfileById);
-router.post("/account", verifyUser, adminOnly, [
-      // ----- EMAIL VALIDATION ----- //
+router.post(
+  "/account",
+  verifyUser,
+  adminOnly,
+  [
+    // ----- EMAIL VALIDATION ----- //
 
-      body("email")
+    body("email")
       .notEmpty()
       .withMessage("Kolom email tidka boleh kosong!")
       .isEmail()
@@ -44,33 +51,49 @@ router.post("/account", verifyUser, adminOnly, [
       .withMessage("Password harus mengandung angka")
       .not()
       .matches(/\s/g)
-      .withMessage("Mohon tidak menggunakan karakter spasi!")
-], createUser);
+      .withMessage("Mohon tidak menggunakan karakter spasi!"),
+  ],
+  createUser
+);
 
-router.put("/account/:id", verifyUser, adminOnly, [
-      // ----- EMAIL VALIDATION ----- //
+router.put(
+  "/account/:id",
+  verifyUser,
+  adminOnly,
+  [
+    // ----- EMAIL VALIDATION ----- //
 
-      body("email")
+    body("email")
       .notEmpty()
       .withMessage("Kolom email tidka boleh kosong!")
       .isEmail()
       .withMessage("Mohon masukan email yang valid!"),
 
     // ----- PASSWORD VALIDATION ----- //
-], updateUser);
+  ],
+  updateUser
+);
 
 router.delete("/account/:id", verifyUser, adminOnly, deleteUser);
-router.put("/account/profile/:id", verifyUser, adminOnly, fileUpload, [
-      // ----- EMAIL VALIDATION ----- //
-
+router.put(
+  "/account/profile/:id",
+  verifyUser,
+  adminOnly,
+  fileUpload,
+  [
+    // ----- EMAIL VALIDATION ----- //
     //  ----- NO TELPON VALIDATION ------ //
-], editProfile);
+  ],
+  editProfile
+);
 // router.put("/upload/:id", verifyUser, adminOnly, fileUpload, uploadImage);
 
-router.put("/change-pass/:id", verifyUser, adminOnly, [
-
+router.put(
+  "/change-pass/:id",
+  verifyUser,
+  adminOnly,
+  [
     // ----- PASSWORD VALIDATION ----- //
-
     // body("password")
     //   .notEmpty()
     //   .withMessage("Kolom password tidak boleh kosong!")
@@ -85,6 +108,9 @@ router.put("/change-pass/:id", verifyUser, adminOnly, [
     //   .not()
     //   .matches(/\s/g)
     //   .withMessage("Mohon tidak menggunakan karakter spasi!")
-], changePassword)
+  ],
+  changePassword
+);
+router.put("/upload/:id", verifyUser, adminOnly, fileUpload, uploadImage);
 
 module.exports = router;

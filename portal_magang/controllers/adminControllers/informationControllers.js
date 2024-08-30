@@ -7,12 +7,13 @@ module.exports = {
     try {
       const getInfo = await info.findAll({
         attributes: ["id", "title", "author", "desc", "createdAt"],
+        order: [["createdAt", "DESC"]],
       });
 
       if (getInfo.length == 0) {
         return res.status(404).json({
-          message: 'Tidak ada informasi / articles yang tersedia'
-        })
+          message: "Tidak ada informasi / articles yang tersedia",
+        });
       }
 
       res.status(200).json({
@@ -34,12 +35,13 @@ module.exports = {
     try {
       const getInfo = await info.findAll({
         attributes: ["id", "title", "author", "desc", "createdAt"],
+        order: [["createdAt", "DESC"]],
       });
 
       if (getInfo.length == 0) {
         return res.status(404).json({
-          message: 'Tidak ada informasi / articles yang tersedia'
-        })
+          message: "Tidak ada informasi / articles yang tersedia",
+        });
       }
 
       res.status(200).json({

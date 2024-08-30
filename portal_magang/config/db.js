@@ -1,8 +1,20 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize } = require("sequelize");
 
-const db = new Sequelize('portal_magang', 'root', '', {
-    dialect: 'mysql',
-    host: 'localhost'
-})
+const db = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: "mysql",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  }
+);
 
-module.exports = db
+module.exports = db;

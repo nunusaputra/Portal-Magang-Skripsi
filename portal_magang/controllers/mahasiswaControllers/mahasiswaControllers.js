@@ -9,7 +9,20 @@ module.exports = {
   getMahasiswa: async (req, res) => {
     try {
       const mhs = await Mahasiswa.findAll({
-        attributes: ["id", "name", "email", "profile_pict", "prodi", "semester", "tgl_lahir", "alamat", "no_hp", "cv", "desc"],
+        attributes: [
+          "id",
+          "name",
+          "email",
+          "profile_pict",
+          "prodi",
+          "semester",
+          "tgl_lahir",
+          "alamat",
+          "no_hp",
+          "cv",
+          "linkCV",
+          "desc",
+        ],
       });
 
       if (!mhs) {
@@ -34,13 +47,26 @@ module.exports = {
   // ------------------ START FITUR GET ALL MAHASISWA BY ID -------------------------- //
 
   getMahasiswaByID: async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
       const mhs = await Mahasiswa.findOne({
         where: {
-          id
+          id,
         },
-        attributes: ["id", "name", "email", "profile_pict", "prodi", "semester", "tgl_lahir", "alamat", "no_hp", "cv", "linkCV", "desc"],
+        attributes: [
+          "id",
+          "name",
+          "email",
+          "profile_pict",
+          "prodi",
+          "semester",
+          "tgl_lahir",
+          "alamat",
+          "no_hp",
+          "cv",
+          "linkCV",
+          "desc",
+        ],
       });
 
       if (!mhs) {
@@ -82,7 +108,7 @@ module.exports = {
 
     if (mhs) {
       return res.status(400).json({
-        message: "Email tersebut sudah digunakan!",
+        message: "Email already registered!",
       });
     }
 
@@ -105,7 +131,7 @@ module.exports = {
       });
 
       res.status(201).json({
-        message: "Success create new akun for mahasiswa",
+        message: "Success Create New Account",
       });
     } catch (error) {
       res.status(500).json({
@@ -135,7 +161,7 @@ module.exports = {
 
       if (!mhs) {
         return res.status(404).json({
-          message: "Email tidak terdaftar!",
+          message: "Email doesn't exist!",
         });
       }
 
@@ -152,9 +178,10 @@ module.exports = {
       const name = mhs.name;
       const email = mhs.email;
       const profile_pict = mhs.profile_pict;
+      const linkCV = mhs.linkCV;
 
       const accessToken = jwt.sign(
-        { mhsId, name, email, profile_pict },
+        { mhsId, name, email, profile_pict, linkCV },
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "1h",
@@ -186,6 +213,7 @@ module.exports = {
       });
 
       res.status(200).json({
+        message: "Login Successfully",
         accessToken,
       });
     } catch (error) {
@@ -202,7 +230,7 @@ module.exports = {
   Logout: async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
-      return res.sendStatus(204);
+      return res.sendStatus(204); // Tidak ada token, tidak perlu logout
     }
 
     const mhs = await Mahasiswa.findOne({
@@ -211,14 +239,14 @@ module.exports = {
       },
     });
 
-    if (!mhs == null) {
-      return res.sendStatus(204);
+    if (mhs === null) {
+      return res.sendStatus(204); // Token tidak ditemukan dalam database
     }
 
     const mhsId = mhs.id;
     await Mahasiswa.update(
       {
-        refreshToken: null,
+        refresh_token: null, // Perbaiki nama properti di sini
       },
       {
         where: {
@@ -228,7 +256,9 @@ module.exports = {
     );
 
     res.clearCookie("refreshToken");
-    return res.sendStatus(204);
+    return res.status(200).json({
+      message: "Logout successfully",
+    });
   },
 
   // ------------------ END FITUR LOGOUT MAHASISWA ------------------------------ //

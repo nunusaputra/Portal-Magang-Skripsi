@@ -16,6 +16,7 @@ module.exports = {
           "jobTitle",
           "maxApplicants",
           "maxPositions",
+          "acceptedCandidates",
           "jobType",
           "salary",
           "skillSet",
@@ -27,7 +28,14 @@ module.exports = {
         include: [
           {
             model: Users,
-            attributes: ["name", "email", "alamat", "no_telpon", "profile", "desc"],
+            attributes: [
+              "name",
+              "email",
+              "alamat",
+              "no_telpon",
+              "profile",
+              "desc",
+            ],
           },
         ],
       });
@@ -77,7 +85,14 @@ module.exports = {
         include: [
           {
             model: Users,
-            attributes: ["name", "email", "alamat", "no_telpon", "profile", "desc"],
+            attributes: [
+              "name",
+              "email",
+              "alamat",
+              "no_telpon",
+              "profile",
+              "desc",
+            ],
           },
         ],
       });
@@ -238,7 +253,6 @@ module.exports = {
   },
   // ------------------------- END FITUR CANCALLED JOB ------------------------------ //
 
-
   // ------------------------- START FITUR GET ALL APPLIED JOB ------------------------------ //
 
   // getApplied: async (req, res) => {
@@ -282,5 +296,4 @@ module.exports = {
   //   }
   // }
   // ------------------------- END FITUR GET ALL APPLIED JOB -------------------------------- //
-
 };

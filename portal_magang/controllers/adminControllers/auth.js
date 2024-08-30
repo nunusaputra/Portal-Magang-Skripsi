@@ -1,18 +1,64 @@
 const Users = require("../../models").User;
 const argon = require("argon2");
-const {validationResult} = require('express-validator')
+const { validationResult } = require("express-validator");
 
 module.exports = {
   // ------------------ START FITUR LOGIN -------------------------- //
-
-  Login: async (req, res) => {
+  Regis: async (req, res) => {
+    const { name, email, password, confPassword, role } = req.body;
 
     const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          error: errors.array()[0].msg,
-        });
-      }
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const mhs = await Users.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (mhs) {
+      return res.status(400).json({
+        message: "Email tersebut sudah digunakan!",
+      });
+    }
+
+    if (password !== confPassword) {
+      return res.status(400).json({
+        message: "Password and confirm password not match!",
+      });
+    }
+
+    const hashPassword = await argon.hash(password);
+
+    try {
+      await Users.create({
+        name,
+        email,
+        password: hashPassword,
+        role,
+      });
+
+      res.status(201).json({
+        message: "Success create new akun for admin",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Internal Server Error",
+      });
+    }
+  },
+
+  Login: async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        error: errors.array()[0].msg,
+      });
+    }
 
     const user = await Users.findOne({
       where: {
@@ -57,7 +103,16 @@ module.exports = {
     }
 
     const user = await Users.findOne({
-      attributes: ["id", "name", "email", "role", "profile"],
+      attributes: [
+        "id",
+        "name",
+        "email",
+        "role",
+        "profile",
+        "no_telpon",
+        "alamat",
+        "createdAt",
+      ],
       where: {
         id: req.session.userId,
       },

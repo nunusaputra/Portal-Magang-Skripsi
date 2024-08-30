@@ -8,16 +8,61 @@ module.exports = {
   // ------------------ START FITUR EDIT PROFILE ------------------------------ //
 
   editProfile: async (req, res) => {
+    const { id } = req.params;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        message: errors.array()[0].msg,
+      });
+    }
+
+    const user = await Users.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found!",
+      });
+    }
+
+    const { name, email, alamat, no_telpon, desc } = req.body;
     try {
-      const { id } = req.params;
+      await Users.update(
+        {
+          name,
+          email,
+          alamat,
+          no_telpon,
+          desc,
+        },
+        {
+          where: {
+            id: user.id,
+          },
+        }
+      );
 
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          message: errors.array()[0].msg,
-        });
-      }
+      return res.status(200).json({
+        message: "Success update profile user",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
 
+  // ------------------ END FITUR EDIT PROFILE ------------------------------ //
+
+  // ------------------ START FITUR UPLOAD GAMBAR -------------------------- //
+
+  uploadImage: async (req, res) => {
+    const { id } = req.params;
+    try {
       const user = await Users.findOne({
         where: {
           id,
@@ -26,15 +71,13 @@ module.exports = {
 
       if (!user) {
         return res.status(404).json({
-          message: "User not found!",
+          message: "404 user not found!",
         });
       }
 
-      const { name, email, alamat, no_telpon, desc } = req.body;
-
       const image = req.file;
 
-      if (user.id === id) {
+      if (user.id == id) {
         let images = "";
 
         if (image) {
@@ -48,12 +91,7 @@ module.exports = {
 
         await Users.update(
           {
-            name,
-            email,
             profile: images,
-            alamat,
-            no_telpon,
-            desc,
           },
           {
             where: {
@@ -67,64 +105,11 @@ module.exports = {
         });
       }
     } catch (error) {
-      res.status(500).json({
+      res.status(400).json({
         message: error.message,
       });
     }
   },
-
-  // ------------------ END FITUR EDIT PROFILE ------------------------------ //
-
-  // ------------------ START FITUR UPLOAD GAMBAR -------------------------- //
-
-  // uploadImage: async (req, res) => {
-  //   const {id} = req.params
-  //   try {
-  //     const user = await Users.findOne({
-  //       where: {
-  //         id
-  //       }
-  //     })
-
-  //     if (!user) {
-  //       return res.status(404).json({
-  //         message: '404 user not found!'
-  //       })
-  //     }
-
-  //     const image = req.file
-
-  //     if (user.id == id) {
-  //       let images = ""
-
-  //       if (image) {
-  //         const fileBase64 = image.buffer.toString("base64")
-  //         const file = `data:${image.mimetype};base64,${fileBase64}`
-  //         const cloudinaryImage = await cloudinary.uploader.upload(file)
-  //         images = cloudinaryImage.url
-  //       } else {
-  //         images = user.profile
-  //       }
-
-  //       await Users.update({
-  //         profile: images
-  //       }, {
-  //         where: {
-  //           id: user.id
-  //         }
-  //       })
-
-  //       return res.status(200).json({
-  //         message: 'Success update profile user',
-  //       })
-
-  //     }
-  //   } catch (error) {
-  //     res.status(400).json({
-  //       message: error.message
-  //     })
-  //   }
-  // },
   // ------------------ END FITUR UPLOAD GAMBAR -------------------------- //
 
   // ------------------ START FITUR CHANGE PASSWORD -------------------------- //

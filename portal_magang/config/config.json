@@ -15,9 +15,16 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "password": "piVFIDNtuwSuLSPpZcpVSqOhQRGCtHAM",
+    "database": "railway",
+    "host": "junction.proxy.rlwy.net",
+    "port": 19156,
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }

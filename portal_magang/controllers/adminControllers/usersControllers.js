@@ -8,7 +8,9 @@ module.exports = {
   // ------------------ START FITUR GET ALL USER -------------------------- //
   getAllUser: async (req, res) => {
     try {
-      const users = await Users.findAll();
+      const users = await Users.findAll({
+        order: ["createdAt", "DESC"],
+      });
 
       if (users.length == 0) {
         return res.status(404).json({
@@ -331,11 +333,11 @@ module.exports = {
   // ------------------ START FITUR GET PROFILE -------------------------- //
 
   getProfileById: async (req, res) => {
-    const {id} = req.params
+    const { id } = req.params;
     try {
       const user = await Users.findOne({
         where: {
-          id
+          id,
         },
         attributes: [
           "id",

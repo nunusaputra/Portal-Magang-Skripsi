@@ -1,35 +1,45 @@
 const express = require("express");
 const router = express.Router();
-const fileUpload = require('../../utils/fileUpload')
-const { verifyUser, mitraOnly} = require('../../middleware/auth')
+const fileUpload = require("../../utils/fileUpload");
+const { verifyUser, mitraOnly } = require("../../middleware/auth");
 const {
-  editProfile, 
+  editProfile,
   changePassword,
-  getProfileById
+  getProfileById,
+  uploadImage,
   // uploadImage
 } = require("../../controllers/mitraControllers/editProfile");
 const { body } = require("express-validator");
 
-router.get("/profile/:id", verifyUser, mitraOnly, getProfileById)
-router.put("/edit/:id", verifyUser, mitraOnly, fileUpload, [
-      // ----- EMAIL VALIDATION ----- //
+router.get("/profile/:id", verifyUser, mitraOnly, getProfileById);
+router.put(
+  "/edit/:id",
+  verifyUser,
+  mitraOnly,
+  // [
+  //   // ----- EMAIL VALIDATION ----- //
 
-      body("email")
-      .notEmpty()
-      .withMessage("Kolom email tidka boleh kosong!")
-      .isEmail()
-      .withMessage("Mohon masukan email yang valid!"),
+  //   body("email")
+  //     .notEmpty()
+  //     .withMessage("Kolom email tidak boleh kosong!")
+  //     .isEmail()
+  //     .withMessage("Mohon masukan email yang valid!"),
 
-      //  ----- NO TELPON VALIDATION ------ //
-      body("no_telpon")
-      .isMobilePhone("id-ID").withMessage('No telpon tidak valid!')
-], editProfile);
-// router.put("/upload/:id", verifyUser, mitraOnly, fileUpload, uploadImage);
+  //   //  ----- NO TELPON VALIDATION ------ //
+  //   body("no_telpon")
+  //     .isMobilePhone("id-ID")
+  //     .withMessage("No telpon tidak valid!"),
+  // ],
+  editProfile
+);
+router.put("/upload/:id", verifyUser, mitraOnly, fileUpload, uploadImage);
 
-router.put("/change-pass/:id", verifyUser, mitraOnly, [
-
+router.put(
+  "/change-pass/:id",
+  verifyUser,
+  mitraOnly,
+  [
     // ----- PASSWORD VALIDATION ----- //
-
     // body("password")
     //   .notEmpty()
     //   .withMessage("Kolom password tidak boleh kosong!")
@@ -44,6 +54,8 @@ router.put("/change-pass/:id", verifyUser, mitraOnly, [
     //   .not()
     //   .matches(/\s/g)
     //   .withMessage("Mohon tidak menggunakan karakter spasi!")
-], changePassword)
+  ],
+  changePassword
+);
 
 module.exports = router;

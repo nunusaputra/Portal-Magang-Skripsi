@@ -13,6 +13,7 @@ module.exports = {
           "jobTitle",
           "maxApplicants",
           "maxPositions",
+          "acceptedCandidates",
           "jobType",
           "salary",
           "skillSet",
@@ -24,12 +25,20 @@ module.exports = {
         include: [
           {
             model: Users,
-            attributes: ["name", "email", "alamat", "no_telpon", "profile"],
+            attributes: [
+              "name",
+              "email",
+              "alamat",
+              "no_telpon",
+              "profile",
+              "desc",
+            ],
           },
         ],
         where: {
           userId: req.userId,
         },
+        order: [["createdAt", "DESC"]],
       });
 
       if (job === null) {
@@ -59,7 +68,7 @@ module.exports = {
       const job = await Jobs.findOne({
         where: {
           id,
-          userId: req.userId
+          userId: req.userId,
         },
         attributes: [
           "id",
@@ -79,16 +88,23 @@ module.exports = {
         include: [
           {
             model: Users,
-            attributes: ["name", "email", "alamat", "no_telpon", "profile", "desc"],
+            attributes: [
+              "name",
+              "email",
+              "alamat",
+              "no_telpon",
+              "profile",
+              "desc",
+            ],
           },
         ],
       });
 
-    //   if (job.userId !== req.userId) {
-    //     return res.status(404).json({
-    //       message: "404 job Not Found!",
-    //     });
-    //   }
+      //   if (job.userId !== req.userId) {
+      //     return res.status(404).json({
+      //       message: "404 job Not Found!",
+      //     });
+      //   }
 
       res.status(200).json({
         message: "Success get job by id",

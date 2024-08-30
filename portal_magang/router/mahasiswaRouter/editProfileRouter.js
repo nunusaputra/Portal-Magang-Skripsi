@@ -4,34 +4,42 @@ const {
   updateProfileMhs,
   ubahPassMhs,
   // uploadImage,
-  uploadCV
+  uploadCV,
+  uploadImageMhs,
 } = require("../../controllers/mahasiswaControllers/editProfileMhs");
 
-const fileUpload = require('../../utils/fileUpload')
-const cvUpload = require('../../utils/cvUpload')
+const fileUpload = require("../../utils/fileUpload");
+const cvUpload = require("../../utils/cvUpload");
 
-const { VerifyToken } = require('../../middleware/verifyToken')
-const {body} = require('express-validator')
+const { VerifyToken } = require("../../middleware/verifyToken");
+const { body } = require("express-validator");
 
-router.put("/edit/profile/:id", VerifyToken, fileUpload, [
-      // ----- EMAIL VALIDATION ----- //
+router.put(
+  "/edit/profile/:id",
+  VerifyToken,
+  fileUpload,
+  [
+    // ----- EMAIL VALIDATION ----- //
 
-      body("email")
+    body("email")
       .notEmpty()
-      .withMessage("Kolom email tidka boleh kosong!")
+      .withMessage("Kolom email tidak boleh kosong!")
       .isEmail()
       .withMessage("Mohon masukan email yang valid!"),
 
-      //  ----- NO TELPON VALIDATION ------ //
-      // body("no_telpon")
-      // .isMobilePhone("id-ID").withMessage('No telpon tidak valid!')
-], updateProfileMhs);
+    //  ----- NO TELPON VALIDATION ------ //
+    // body("no_telpon")
+    // .isMobilePhone("id-ID").withMessage('No telpon tidak valid!')
+  ],
+  updateProfileMhs
+);
 
-router.put("/edit/cv/:id", cvUpload, uploadCV)
-router.put("/edit/change-pass/:id", VerifyToken, [
-
+router.put("/edit/cv/:id", cvUpload, uploadCV);
+router.put(
+  "/edit/change-pass/:id",
+  VerifyToken,
+  [
     // ----- PASSWORD VALIDATION ----- //
-
     // body("password")
     //   .notEmpty()
     //   .withMessage("Kolom password tidak boleh kosong!")
@@ -46,7 +54,9 @@ router.put("/edit/change-pass/:id", VerifyToken, [
     //   .not()
     //   .matches(/\s/g)
     //   .withMessage("Mohon tidak menggunakan karakter spasi!")
-], ubahPassMhs);
-// router.put('/upload/:id', uploadImage)
+  ],
+  ubahPassMhs
+);
+router.put("/upload/:id", VerifyToken, fileUpload, uploadImageMhs);
 
 module.exports = router;

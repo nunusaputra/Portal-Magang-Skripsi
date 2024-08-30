@@ -68,130 +68,128 @@ module.exports = {
 
   // -------------- START FITUR UPDATE STATUS FOR APPLICANT -------------- //
 
+  updateStatus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const status = req.body.status;
+      const dateOfJoining = req.body.dateOfJoining;
 
-updateStatus: async (req, res) => {
-  try {
-    const { id } = req.params;
-    const status = req.body.status;
-    const dateOfJoining = req.body.dateOfJoining;
-
-    if (status === "accepted") {
-      const applyJob = await ApplyJob.findOne({
-        where: {
-          id,
-          mitraId: req.userId,
-        },
-      });
-
-      if (!applyJob) {
-        return res.status(404).json({
-          message: "Tidak ada pelamar kerja yang ditemukan!",
-        });
-      }
-
-      const job = await Jobs.findOne({
-        where: {
-          id: applyJob.jobId,
-          userId: req.userId,
-        },
-      });
-
-      if (!job) {
-        return res.status(404).json({
-          message: "Tidak ada pekerjaan yang ditemukan!",
-        });
-      }
-
-      const activeApplyJob = await ApplyJob.count({
-        where: {
-          mitraId: req.userId,
-          jobId: job.id,
-          status: "accepted",
-        },
-      });
-
-      if (activeApplyJob < job.maxPositions) {
-        // accepted
-        applyJob.status = status;
-        applyJob.dateOfJoining = dateOfJoining;
-        await applyJob.save();
-
-        // Membatalkan semua lamaran dengan mhsId yang sama, kecuali yang sedang diproses
-        await ApplyJob.update(
-          {
-            status: "canceled",
-          },
-          {
-            where: {
-              mhsId: applyJob.mhsId,
-              id: {
-                [Op.ne]: id,
-              },
-              status: {
-                [Op.notIn]: ["rejected", "deleted", "canceled", "accepted"],
-              },
-            },
-          }
-        );
-
-        if (status === "accepted") {
-          await Jobs.update(
-            {
-              acceptedCandidates: activeApplyJob + 1,
-            },
-            {
-              where: {
-                id: job.id,
-                userId: req.userId,
-              },
-            }
-          );
-        }
-
-        return res.status(200).json({
-          message: `Application ${status} successfully`,
-        });
-      } else {
-        return res.status(400).json({
-          message: "All positions for this job are already filled",
-        });
-      }
-    } else {
-      const { numaffected, rowaffected } = await ApplyJob.update(
-        {
-          status,
-        },
-        {
+      if (status === "accepted") {
+        const applyJob = await ApplyJob.findOne({
           where: {
             id,
             mitraId: req.userId,
-            status: {
-              [Op.notIn]: ["rejected", "deleted", "canceled"],
-            },
           },
-          returning: true,
-        }
-      );
+        });
 
-      if (numaffected === 0) {
-        return res.status(400).json({
-          message: "Apply job can be updated",
+        if (!applyJob) {
+          return res.status(404).json({
+            message: "Tidak ada pelamar kerja yang ditemukan!",
+          });
+        }
+
+        const job = await Jobs.findOne({
+          where: {
+            id: applyJob.jobId,
+            userId: req.userId,
+          },
+        });
+
+        if (!job) {
+          return res.status(404).json({
+            message: "Tidak ada pekerjaan yang ditemukan!",
+          });
+        }
+
+        const activeApplyJob = await ApplyJob.count({
+          where: {
+            mitraId: req.userId,
+            jobId: job.id,
+            status: "accepted",
+          },
+        });
+
+        if (activeApplyJob < job.maxPositions) {
+          // accepted
+          applyJob.status = status;
+          applyJob.dateOfJoining = dateOfJoining;
+          await applyJob.save();
+
+          // Membatalkan semua lamaran dengan mhsId yang sama, kecuali yang sedang diproses
+          await ApplyJob.update(
+            {
+              status: "canceled",
+            },
+            {
+              where: {
+                mhsId: applyJob.mhsId,
+                id: {
+                  [Op.ne]: id,
+                },
+                status: {
+                  [Op.notIn]: ["rejected", "deleted", "canceled", "accepted"],
+                },
+              },
+            }
+          );
+
+          if (status === "accepted") {
+            await Jobs.update(
+              {
+                acceptedCandidates: activeApplyJob + 1,
+              },
+              {
+                where: {
+                  id: job.id,
+                  userId: req.userId,
+                },
+              }
+            );
+          }
+
+          return res.status(200).json({
+            message: `Application ${status} successfully`,
+          });
+        } else {
+          return res.status(400).json({
+            message: "All positions for this job are already filled",
+          });
+        }
+      } else {
+        const { numaffected, rowaffected } = await ApplyJob.update(
+          {
+            status,
+          },
+          {
+            where: {
+              id,
+              mitraId: req.userId,
+              status: {
+                [Op.notIn]: ["rejected", "deleted", "canceled"],
+              },
+            },
+            returning: true,
+          }
+        );
+
+        if (numaffected === 0) {
+          return res.status(400).json({
+            message: "Apply job can be updated",
+          });
+        }
+        return res.status(200).json({
+          message:
+            status === "finished"
+              ? `Job ${status} successfully`
+              : `Application ${status} successfully`,
         });
       }
-      return res.status(200).json({
-        message:
-          status === "finished"
-            ? `Job ${status} successfully`
-            : `Application ${status} successfully`,
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
       });
     }
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-},
-
+  },
 
   // -------------- END FITUR UPDATE STATUS FOR APPLICANT ---------------- //
 
@@ -215,6 +213,7 @@ updateStatus: async (req, res) => {
               "no_hp",
               "cv",
               "desc",
+              "linkCV",
             ],
           },
           {
